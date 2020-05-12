@@ -1,0 +1,42 @@
+import math
+d={}
+def solution(n):
+    n=(int)(n)
+    # if invalid input i.e <= 0
+    if(n==0):
+        return 0
+
+    # power of 2
+    pow_2=(int)(math.log(n,2.0))
+    if(n==(2**pow_2)):
+        d[n]=(int)(math.log(n,2.0))
+        return (int)(math.log(n,2.0))
+    
+    # if present in lookup table
+    elif(n in d):
+        return d[n]
+    else:
+        c=0
+        while(n&1==0):
+            n>>=1
+            c+=1
+        
+        nextEven=n+1
+        prevEven=n-1
+        d[nextEven]=solution(nextEven)
+        d[prevEven]=solution(prevEven)
+        d[n]=c+min((1+d[nextEven]),(1+d[prevEven]))
+    
+    return d[n]
+
+
+#Test Cases
+print(solution("100"))
+print(solution("0"))
+print(solution("1"))
+print(solution("2"))
+print(solution("3"))
+print(solution("4"))
+print(solution("15"))
+#print(solution1("555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555"))
+#print(solution('999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999'))
